@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Toprak Özel Eğitim Kurumları | Ankara'nın En Başarılı Kurumu</title>
+    
+    <!-- Favicon (Logodan çekiliyor) -->
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        toprak: {
+                            primary: '#1db3b8',   /* Logodaki Turkuaz/Teal Rengi */
+                            secondary: '#f49e25', /* Logodaki Turuncu/Altın Rengi */
+                            navy: '#121e33',      /* Kontrast için Koyu Lacivert */
+                            light: '#f8fafc'
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Yatay Kayma (Scroll) Hatalarını Kesin Olarak Çözme */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Animasyon Sınıfları */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Yorum Carousel Özellikleri */
+        .carousel-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            padding: 1rem;
+        }
+        @media (min-width: 768px) {
+            .carousel-item {
+                min-width: 50%;
+            }
+        }
+        @media (min-width: 1024px) {
+            .carousel-item {
+                min-width: 33.333333%;
+            }
+        }
+
+        /* Hero Overlay (Yeni Renklere Göre) */
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(18, 30, 51, 0.95), rgba(29, 179, 184, 0.75));
+        }
+
+        /* Özel Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1db3b8; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #121e33; 
+        }
+    </style>
+</head>
+<body class="bg-toprak-light text-slate-800 antialiased selection:bg-toprak-secondary selection:text-white">
+
+    <!-- Toast Bildirim Ekranı -->
+    <div id="toast" class="fixed top-24 right-4 bg-toprak-primary text-white px-6 py-4 rounded-xl shadow-2xl transform translate-x-[150%] opacity-0 transition-all duration-500 z-[60] flex items-center gap-4 border-l-4 border-toprak-secondary max-w-[90vw]">
+        <i class="ph-fill ph-check-circle text-3xl text-toprak-secondary"></i>
+        <div>
+            <h4 class="font-bold text-sm">Başarılı!</h4>
+            <p class="text-sm text-gray-50">Talebiniz alındı, en kısa sürede dönüş yapacağız.</p>
+        </div>
+    </div>
+
+    <!-- Ünal Partnerlik Demo Linki (İstenen Görsele Göre Birebir Tasarım) -->
+    <a href="https://unal-partnering.github.io/anasayfa" class="fixed bottom-6 left-6 z-50 bg-[#1e223f] px-3 py-3 rounded-[20px] shadow-2xl hover:bg-[#181a30] transition-all duration-300 flex items-center gap-4 group transform hover:-translate-y-1 border border-gray-700/30 w-auto max-w-[90vw]">
+        <!-- Logo Kutusu -->
+        <div class="rounded-xl overflow-hidden flex items-center justify-center w-[52px] h-[52px] shadow-inner border border-gray-600/30 flex-shrink-0 bg-[#242b4d]">
+            <img src="unal.jpg" alt="Ünal Partnerlik" class="w-full h-full object-cover">
+        </div>
+        <!-- Metinler -->
+        <div class="flex flex-col justify-center pr-4">
+            <span class="text-[#eab308] font-extrabold text-[15px] tracking-wide leading-none mb-1.5 whitespace-nowrap">UNAL PARTNERLİK</span>
+            <span class="text-gray-300 text-[10px] font-bold tracking-widest uppercase leading-none opacity-90 whitespace-nowrap">Demo Websitesi̇di̇r</span>
+        </div>
+    </a>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo Kısmı ve Yazısı -->
+                <div class="flex-shrink-0 flex items-center gap-3 md:gap-4 cursor-pointer transform hover:scale-105 transition-transform" onclick="window.scrollTo(0,0)">
+                    <img src="logo.jpg" alt="Toprak Özel Eğitim Kurumları" class="h-12 w-12 md:h-16 md:w-16 aspect-square object-contain rounded-full">
+                    <div class="flex flex-col justify-center">
+                        <span class="font-extrabold text-xl md:text-2xl leading-none text-toprak-navy tracking-tight mb-1">TOPRAK</span>
+                        <span class="text-[10px] md:text-[11px] font-bold text-toprak-primary tracking-widest uppercase leading-none">Özel Eğitim Kurumları</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#programlar" class="text-sm font-bold text-slate-600 hover:text-toprak-primary transition">Programlar</a>
+                    <a href="#farkimiz" class="text-sm font-bold text-slate-600 hover:text-toprak-primary transition">Neden Biz?</a>
+                    <a href="#yorumlar" class="text-sm font-bold text-slate-600 hover:text-toprak-primary transition">Başarılarımız</a>
+                    <a href="#iletisim" class="text-sm font-bold text-slate-600 hover:text-toprak-primary transition">İletişim</a>
+                    <a href="#iletisim" class="bg-toprak-secondary hover:bg-[#df8a1b] text-white px-7 py-3 rounded-full font-bold text-sm transition-all shadow-[0_4px_14px_0_rgba(244,158,37,0.39)] hover:shadow-[0_6px_20px_rgba(244,158,37,0.23)] transform hover:-translate-y-0.5">Sizi Arayalım</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-toprak-navy focus:outline-none bg-gray-50 p-2 rounded-lg">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-2xl">
+            <div class="px-4 pt-4 pb-8 space-y-3">
+                <a href="#programlar" class="block px-4 py-3 text-base font-bold text-slate-700 hover:text-toprak-primary hover:bg-gray-50 rounded-xl transition-colors">Programlar</a>
+                <a href="#farkimiz" class="block px-4 py-3 text-base font-bold text-slate-700 hover:text-toprak-primary hover:bg-gray-50 rounded-xl transition-colors">Neden Biz?</a>
+                <a href="#yorumlar" class="block px-4 py-3 text-base font-bold text-slate-700 hover:text-toprak-primary hover:bg-gray-50 rounded-xl transition-colors">Başarılarımız</a>
+                <a href="#iletisim" class="block px-4 py-3 text-base font-bold text-slate-700 hover:text-toprak-primary hover:bg-gray-50 rounded-xl transition-colors">İletişim</a>
+                <a href="#iletisim" class="block text-center mt-6 bg-toprak-secondary text-white px-6 py-4 rounded-xl font-bold text-lg shadow-md">Sizi Arayalım</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[100svh] flex items-center pt-24 overflow-hidden">
+        <!-- Arka Plan Görseli -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=2000" alt="Öğrenciler Sınıf Ortamı" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-4xl reveal">
+                <!-- Güven Rozeti -->
+                <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full mb-8 shadow-lg">
+                    <div class="flex text-toprak-secondary text-base">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <span class="text-white text-xs sm:text-sm font-bold tracking-wide">Google Haritalar'da 5.0/5.0 Puan!</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
+                    Ankara'nın En Başarılı <br/><span class="text-toprak-secondary">Eğitim Kurumuna</span> Hoş Geldiniz!
+                </h1>
+                
+                <h2 class="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium mb-8 leading-relaxed max-w-2xl">
+                    TYT, AYT, LGS ve Tüm Ara Sınıflarda Aile Sıcaklığında, Disiplinli Başarı Sizi Bekliyor.
+                </h2>
+                
+                <!-- Slogan Bölümü -->
+                <div class="mb-12 bg-toprak-primary/40 backdrop-blur-sm border-l-4 border-toprak-secondary py-4 px-6 rounded-r-xl inline-block shadow-lg transform hover:translate-x-2 transition-transform">
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white italic tracking-wide">
+                        "Toprağa düşen yeşerir."
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <a href="#iletisim" class="bg-toprak-secondary hover:bg-[#df8a1b] text-white font-extrabold text-lg px-8 py-4 rounded-full text-center transition-all shadow-[0_0_20px_rgba(244,158,37,0.4)] hover:shadow-[0_0_30px_rgba(244,158,37,0.6)] transform hover:-translate-y-1">
+                        Ücretsiz Danışmanlık Alın
+                    </a>
+                    <a href="#yorumlar" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-lg px-8 py-4 rounded-full text-center transition-all flex items-center justify-center gap-2 group">
+                        Başarı Hikayelerimiz <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+            <a href="#farkimiz" class="text-white/60 hover:text-toprak-secondary transition flex flex-col items-center">
+                <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase mb-1">Keşfet</span>
+                <i class="ph ph-caret-down text-2xl sm:text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Neden Toprak Eğitim? (Farkımız) -->
+    <section id="farkimiz" class="py-20 md:py-28 bg-white overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <span class="text-toprak-primary font-bold tracking-widest text-sm uppercase bg-toprak-primary/10 px-4 py-1.5 rounded-full inline-block mb-4">Neden Biz?</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-toprak-navy mt-2 mb-6">Sadece Bir Dershane Değil, <span class="text-toprak-primary">Aileniz.</span></h2>
+                <div class="w-24 h-1.5 bg-toprak-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Madde 1 -->
+                <div class="bg-toprak-light rounded-3xl p-8 md:p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-left group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 md:mb-8 group-hover:bg-toprak-primary transition-colors duration-500">
+                        <i class="ph ph-users-three text-3xl md:text-4xl text-toprak-primary group-hover:text-white transition-colors duration-500"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-toprak-navy mb-4">Ödünsüz Disiplin & Aile Ortamı</h3>
+                    <p class="text-slate-600 leading-relaxed text-base md:text-lg">
+                        Sadece bir dershane değil; Neşe Hanım, Doğan Hoca ve Ersoy Hoca liderliğinde, öğrencinin her sorunuyla birebir ilgilenilen sıcak, disiplinli bir aile yuvası.
+                    </p>
+                </div>
+
+                <!-- Madde 2 -->
+                <div class="bg-toprak-light rounded-3xl p-8 md:p-10 border border-toprak-secondary/30 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal group relative transform md:-translate-y-4">
+                    <div class="absolute -top-4 -right-2 md:-top-5 md:-right-2 bg-gradient-to-r from-toprak-secondary to-[#f97316] text-[10px] md:text-xs font-extrabold px-3 py-1.5 md:px-4 md:py-2 rounded-full text-white shadow-xl rotate-6 border-2 border-white">
+                        KANITLANMIŞ BAŞARI!
+                    </div>
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 md:mb-8 group-hover:bg-toprak-secondary transition-colors duration-500">
+                        <i class="ph ph-trend-up text-3xl md:text-4xl text-toprak-secondary group-hover:text-white transition-colors duration-500"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-toprak-navy mb-4">Devasa Sıçrama Garantisi</h3>
+                    <p class="text-slate-600 leading-relaxed text-base md:text-lg">
+                        256.000'den 18.000'e, 64.000'den 6.000'e çekilen sıralamalar. Meslek Lisesinden Tıp Fakültesine uzanan mucizevi değil, emek dolu gerçek başarı hikayeleri.
+                    </p>
+                </div>
+
+                <!-- Madde 3 -->
+                <div class="bg-toprak-light rounded-3xl p-8 md:p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-right group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 md:mb-8 group-hover:bg-toprak-navy transition-colors duration-500">
+                        <i class="ph ph-map-pin text-3xl md:text-4xl text-toprak-navy group-hover:text-white transition-colors duration-500"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-toprak-navy mb-4">Merkezi Konum (Kızılay)</h3>
+                    <p class="text-slate-600 leading-relaxed text-base md:text-lg">
+                        Zaman en değerli hazineniz. Kızılay metro durağına ve otobüs duraklarına sadece yürüme mesafesinde, günün her saati kolay ve güvenli ulaşım imkanı.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eğitim Modellerimiz -->
+    <section id="programlar" class="py-20 md:py-28 bg-toprak-navy text-white relative overflow-hidden">
+        <!-- Arka Plan Süsü (Mobilde taşmayı önlemek için ayarlandı) -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 md:-mr-40 md:-mt-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-toprak-primary/10 blur-[80px] md:blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 md:-ml-40 md:-mb-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full bg-toprak-secondary/10 blur-[80px] md:blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <span class="text-toprak-secondary font-bold tracking-widest text-sm uppercase bg-toprak-secondary/10 px-4 py-1.5 rounded-full inline-block mb-4">Eğitim Modellerimiz</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold mt-2 mb-6">Geleceğe Güvenli Adımlar</h2>
+                <div class="w-24 h-1.5 bg-toprak-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Kart 1 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 hover:bg-white/10 hover:-translate-y-2 transition-all duration-300 reveal group">
+                    <div class="bg-toprak-secondary w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <i class="ph-bold ph-student text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white group-hover:text-toprak-secondary transition-colors">YKS (TYT-AYT)</h3>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        Hedefi zirve olanlar için eksiksiz konu anlatımı, yeni nesil soru çözümleri, sıkı takip ve birebir koçluk desteği.
+                    </p>
+                </div>
+
+                <!-- Kart 2 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 hover:bg-white/10 hover:-translate-y-2 transition-all duration-300 reveal group" style="transition-delay: 100ms;">
+                    <div class="bg-toprak-primary w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <i class="ph-bold ph-exam text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white group-hover:text-toprak-primary transition-colors">LGS Hazırlık</h3>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        Geleceğin temellerini sağlam atan, MEB müfredatına ve yeni nesil mantık-muhakeme sorularına tam uyumlu eğitim.
+                    </p>
+                </div>
+
+                <!-- Kart 3 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 hover:bg-white/10 hover:-translate-y-2 transition-all duration-300 reveal group" style="transition-delay: 200ms;">
+                    <div class="bg-indigo-500 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <i class="ph-bold ph-books text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white group-hover:text-indigo-400 transition-colors">Ara Sınıf Destek</h3>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        İlkokul, ortaokul ve lise ara sınıfları için okul başarısını doğrudan artıran, temeli güçlendiren takviye dersler.
+                    </p>
+                </div>
+
+                <!-- Kart 4 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 md:p-8 hover:bg-white/10 hover:-translate-y-2 transition-all duration-300 reveal group" style="transition-delay: 300ms;">
+                    <div class="bg-rose-500 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <i class="ph-bold ph-chart-line-up text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white group-hover:text-rose-400 transition-colors">Deneme Kulübü</h3>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        Sınav stresini yenmek için düzenli uygulanan kurumsal deneme sistemi ve öğrenciye özel detaylı karne analizi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sosyal Kanıt ve Başarılar -->
+    <section id="yorumlar" class="py-20 md:py-28 bg-slate-50 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <div class="flex justify-center mb-4 md:mb-6 text-toprak-secondary text-2xl gap-1">
+                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-toprak-navy mb-4 md:mb-6">Gerçek Başarı, Gerçek Yorumlar</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-base md:text-lg">Sıralamalarını binlerce kişi öne çeken, hedeflerine Toprak Özel Eğitim ailesiyle ulaşan öğrencilerimizin ve velilerimizin başarı hikayeleri.</p>
+            </div>
+
+            <!-- Carousel Container -->
+            <div class="carousel-container relative reveal" id="review-carousel">
+                <div class="carousel-track" id="track">
+                    
+                    <!-- Yorum 1 -->
+                    <div class="carousel-item">
+                        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 h-full flex flex-col justify-between transform transition-transform hover:-translate-y-1">
+                            <div>
+                                <i class="ph-fill ph-quotes text-4xl md:text-5xl text-toprak-primary/20 mb-4 md:mb-6 block"></i>
+                                <p class="text-slate-700 italic mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">"Sayısal 64 binden 6 bine çekmemi sağlayan nadide eğitim kurumudur... Başta Neşe abla olmak üzere herkese teşekkürler. Ev sıcaklığı isteyen arkadaşlara şiddetle önerimdir."</p>
+                            </div>
+                            <div class="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                                <div class="w-12 h-12 bg-toprak-primary text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">E</div>
+                                <div>
+                                    <h4 class="font-extrabold text-toprak-navy text-sm md:text-base">Ersin Hacıoğlu</h4>
+                                    <span class="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Google Yerel Rehber</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yorum 2 -->
+                    <div class="carousel-item">
+                        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 h-full flex flex-col justify-between transform transition-transform hover:-translate-y-1">
+                            <div>
+                                <i class="ph-fill ph-quotes text-4xl md:text-5xl text-toprak-primary/20 mb-4 md:mb-6 block"></i>
+                                <p class="text-slate-700 italic mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">"Sınava 3 ay kala 256 bin sıralamadan alıp 18 bin sıralamaya getiren bir kurumun ötesinde ailem 😊 Öğrencinin her sorunu ile özel olarak ilgileniliyor. Kesinlikle tavsiye ederim."</p>
+                            </div>
+                            <div class="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                                <div class="w-12 h-12 bg-toprak-navy text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">H</div>
+                                <div>
+                                    <h4 class="font-extrabold text-toprak-navy text-sm md:text-base">Hasan Behram Ardıç</h4>
+                                    <span class="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Derece Öğrencisi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yorum 3 -->
+                    <div class="carousel-item">
+                        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 h-full flex flex-col justify-between transform transition-transform hover:-translate-y-1">
+                            <div>
+                                <i class="ph-fill ph-quotes text-4xl md:text-5xl text-toprak-primary/20 mb-4 md:mb-6 block"></i>
+                                <p class="text-slate-700 italic mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">"Meslek lisesi çıkışlı olduğum halde bana çok yardımcı oldular, temelimi güçlendirdiler. Toprak dershanesinden Tıp kazandım. Her şey için çok ama çok minnettarım."</p>
+                            </div>
+                            <div class="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                                <div class="w-12 h-12 bg-toprak-secondary text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">Ü</div>
+                                <div>
+                                    <h4 class="font-extrabold text-toprak-navy text-sm md:text-base">Ümmühan Kaçar</h4>
+                                    <span class="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Tıp Fakültesi Öğrencisi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yorum 4 -->
+                    <div class="carousel-item">
+                        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 h-full flex flex-col justify-between transform transition-transform hover:-translate-y-1">
+                            <div>
+                                <i class="ph-fill ph-quotes text-4xl md:text-5xl text-toprak-primary/20 mb-4 md:mb-6 block"></i>
+                                <p class="text-slate-700 italic mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">"Sınav hazırlık dönemimde sağladıkları aile ortamı, psikolojik destek ve disiplin sayesinde bu sene üniversite sınavında 2 bininci oldum. Başta Mehmet hocam olmak üzere teşekkürler."</p>
+                            </div>
+                            <div class="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                                <div class="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">C</div>
+                                <div>
+                                    <h4 class="font-extrabold text-toprak-navy text-sm md:text-base">Ceyda S.</h4>
+                                    <span class="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Türkiye Derecesi (2K)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Yorum 5 -->
+                    <div class="carousel-item">
+                        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 h-full flex flex-col justify-between transform transition-transform hover:-translate-y-1">
+                            <div>
+                                <i class="ph-fill ph-quotes text-4xl md:text-5xl text-toprak-primary/20 mb-4 md:mb-6 block"></i>
+                                <p class="text-slate-700 italic mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">"Burası harika ve mükemmel bir yer, sadece bir dershane değil, bir aile ortamı ve muazzam bir samimiyet var. Çocuğunun geleceğini düşünenlerin kaçırmaması gereken özel bir yer."</p>
+                            </div>
+                            <div class="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                                <div class="w-12 h-12 bg-rose-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">M</div>
+                                <div>
+                                    <h4 class="font-extrabold text-toprak-navy text-sm md:text-base">Mustafa Kağan Koçak</h4>
+                                    <span class="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Veli</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="flex justify-center gap-4 md:gap-6 mt-8 md:mt-12">
+                    <button id="prevBtn" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-toprak-navy hover:bg-toprak-primary hover:text-white transition-all transform hover:scale-110 focus:outline-none border border-gray-100">
+                        <i class="ph-bold ph-arrow-left text-xl md:text-2xl"></i>
+                    </button>
+                    <button id="nextBtn" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-toprak-navy hover:bg-toprak-primary hover:text-white transition-all transform hover:scale-110 focus:outline-none border border-gray-100">
+                        <i class="ph-bold ph-arrow-right text-xl md:text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim Bölümü -->
+    <section id="iletisim" class="py-20 md:py-28 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                
+                <!-- Sol Taraf: İletişim Bilgileri ve Harita -->
+                <div class="reveal-left">
+                    <span class="text-toprak-primary font-bold tracking-widest text-sm uppercase bg-toprak-primary/10 px-4 py-1.5 rounded-full inline-block mb-4">Bize Ulaşın</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-toprak-navy mb-6">Geleceği Birlikte Planlayalım</h2>
+                    <p class="text-slate-600 mb-8 md:mb-10 text-base md:text-lg leading-relaxed">Ücretsiz seviye tespiti, detaylı danışmanlık veya erken kayıt avantajları hakkında bilgi almak için kurumumuzu ziyaret edebilir veya formu doldurabilirsiniz.</p>
+                    
+                    <div class="space-y-6 md:space-y-8 mb-10 md:mb-12">
+                        <!-- Konum -->
+                        <div class="flex items-start gap-4 md:gap-5 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-toprak-light border border-gray-200 flex items-center justify-center flex-shrink-0 group-hover:bg-toprak-primary transition-colors duration-300 shadow-sm">
+                                <i class="ph-fill ph-map-pin text-xl md:text-2xl text-toprak-primary group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-toprak-navy text-base md:text-lg">Adresimiz (Kızılay Merkez)</h4>
+                                <p class="text-slate-600 text-sm md:text-base mt-1 md:mt-2 leading-relaxed">Kızılay, Sümer-2 Cd. No:27/4, 06420<br>Çankaya / Ankara</p>
+                            </div>
+                        </div>
+                        <!-- Telefon -->
+                        <div class="flex items-start gap-4 md:gap-5 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-toprak-light border border-gray-200 flex items-center justify-center flex-shrink-0 group-hover:bg-toprak-primary transition-colors duration-300 shadow-sm">
+                                <i class="ph-fill ph-phone text-xl md:text-2xl text-toprak-primary group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-toprak-navy text-base md:text-lg">Telefon</h4>
+                                <a href="tel:03122310704" class="text-slate-600 text-sm md:text-base mt-1 md:mt-2 hover:text-toprak-secondary transition block font-medium">(0312) 231 07 04</a>
+                            </div>
+                        </div>
+                        <!-- Saatler -->
+                        <div class="flex items-start gap-4 md:gap-5 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-toprak-light border border-gray-200 flex items-center justify-center flex-shrink-0 group-hover:bg-toprak-primary transition-colors duration-300 shadow-sm">
+                                <i class="ph-fill ph-clock text-xl md:text-2xl text-toprak-primary group-hover:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-toprak-navy text-base md:text-lg">Çalışma Saatleri</h4>
+                                <p class="text-slate-600 text-sm md:text-base mt-1 md:mt-2 font-medium">Pazartesi - Pazar: 09:00 - 21:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sosyal Medya -->
+                    <div class="flex gap-4 mb-8 md:mb-10">
+                        <a href="https://www.facebook.com/people/Toprak-%C3%96zel-E%C4%9Fitim-Kurumlar%C4%B1/61577619695134/#" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-50 border border-gray-200 flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm transform hover:scale-110">
+                            <i class="ph-fill ph-facebook-logo text-xl md:text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/toprakegitim/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-50 border border-gray-200 flex items-center justify-center text-slate-600 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:text-white hover:border-transparent transition-all shadow-sm transform hover:scale-110">
+                            <i class="ph-fill ph-instagram-logo text-xl md:text-2xl"></i>
+                        </a>
+                    </div>
+
+                    <!-- Harita İframe -->
+                    <div class="w-full h-64 md:h-72 rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3059.814231846505!2d32.84725207663249!3d39.92169007152431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d34f005cc0db31%3A0xe549556d11e5a51!2zw5Z6ZWwgVG9wcmFrIMOWxJ9yZW5jaSBFdMO8dCBFxJ9pdGltIE1lcmtlemk!5e0!3m2!1str!2str!4v1708860000000!5m2!1str!2str" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Sağ Taraf: İletişim Formu -->
+                <div class="bg-white p-6 md:p-12 rounded-[2rem] shadow-2xl border border-gray-100 reveal-right relative overflow-hidden mt-8 lg:mt-0 w-full max-w-full">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-toprak-secondary/10 rounded-bl-[100px] -z-0"></div>
+                    
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-toprak-navy mb-6 md:mb-8 relative z-10">Hızlı Bilgi Alın</h3>
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-5 md:space-y-6 relative z-10">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5 md:mb-2">Adınız</label>
+                                <input type="text" required class="w-full px-4 py-3 md:px-5 md:py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-toprak-primary focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white text-sm md:text-base" placeholder="Örn: Ahmet">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5 md:mb-2">Soyadınız</label>
+                                <input type="text" required class="w-full px-4 py-3 md:px-5 md:py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-toprak-primary focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white text-sm md:text-base" placeholder="Örn: Yılmaz">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 md:mb-2">Telefon Numaranız</label>
+                            <input type="tel" required class="w-full px-4 py-3 md:px-5 md:py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-toprak-primary focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white text-sm md:text-base" placeholder="05XX XXX XX XX">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 md:mb-2">İlgilendiğiniz Program</label>
+                            <select class="w-full px-4 py-3 md:px-5 md:py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-toprak-primary focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white appearance-none cursor-pointer text-sm md:text-base">
+                                <option value="" disabled selected>Lütfen size uygun programı seçiniz</option>
+                                <option value="YKS">YKS (TYT-AYT) Hazırlık</option>
+                                <option value="LGS">LGS Hazırlık</option>
+                                <option value="LiseAra">Lise Ara Sınıf (9, 10, 11)</option>
+                                <option value="OrtaAra">Ortaokul Ara Sınıf (5, 6, 7)</option>
+                                <option value="IlkOkul">İlkokul Destek</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 md:mb-2">Mesajınız (İsteğe Bağlı)</label>
+                            <textarea rows="3" class="w-full px-4 py-3 md:px-5 md:py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-toprak-primary focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white resize-none text-sm md:text-base" placeholder="Öğrencinizin hedefleri, durumu veya sormak istedikleriniz..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-toprak-navy hover:bg-toprak-primary text-white font-extrabold text-base md:text-lg py-4 md:py-5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center gap-3 transform hover:-translate-y-1">
+                            Sizi Arayalım <i class="ph-bold ph-paper-plane-tilt text-lg md:text-xl"></i>
+                        </button>
+                        <p class="text-[10px] md:text-xs text-slate-500 text-center mt-3 md:mt-4 font-medium"><i class="ph-fill ph-lock-key mr-1"></i> Bilgileriniz KVKK kapsamında korunmakta olup 3. şahıslarla paylaşılmaz.</p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-toprak-navy text-slate-300 py-12 border-t border-slate-800 text-center relative overflow-hidden pb-24 lg:pb-12">
+        <!-- Footer Arka Plan Deseni -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center">
+            
+            <!-- Logonun Kendisi (Gereksiz yazılar kaldırıldı) -->
+            <div class="flex justify-center items-center mb-6 bg-white p-3 md:p-4 rounded-2xl inline-flex backdrop-blur-sm border border-gray-100 shadow-sm">
+                <img src="logo.jpg" alt="Toprak Özel Eğitim Kurumları Logo" class="h-20 w-20 md:h-24 md:w-24 aspect-square object-contain rounded-full">
+            </div>
+            
+            <p class="text-lg md:text-xl font-medium italic text-white mb-8 border-b border-white/10 pb-6 px-4 md:px-10">
+                "Toprağa düşen yeşerir."
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-sm font-medium mb-8 px-2">
+                <a href="#programlar" class="hover:text-toprak-secondary transition">Programlar</a>
+                <a href="#farkimiz" class="hover:text-toprak-secondary transition">Hakkımızda</a>
+                <a href="#yorumlar" class="hover:text-toprak-secondary transition">Öğrenci Yorumları</a>
+                <a href="#iletisim" class="hover:text-toprak-secondary transition">İletişim & Konum</a>
+            </div>
+
+            <p class="text-xs md:text-sm text-slate-500 font-medium">&copy; 2024 Toprak Özel Eğitim Kurumları. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Sabit WhatsApp Butonu -->
+    <a href="https://wa.me/903122310704?text=Merhaba,%20eğitim%20programlarınız%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="fixed bottom-24 lg:bottom-6 right-6 bg-[#25D366] hover:bg-[#1DA851] text-white px-4 py-3 md:px-5 md:py-4 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] flex items-center gap-2 md:gap-3 z-50 transform hover:scale-105 transition-all duration-300 group">
+        <i class="ph-fill ph-whatsapp text-2xl md:text-3xl animate-pulse"></i>
+        <span class="font-bold hidden sm:inline-block max-w-0 group-hover:max-w-xs overflow-hidden transition-all duration-500 whitespace-nowrap text-base md:text-lg">
+            Hemen Bilgi Alın
+        </span>
+    </a>
+
+    <!-- JavaScript Etkileşimleri -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')){
+                icon.classList.remove('ph-x');
+                icon.classList.add('ph-list');
+            } else {
+                icon.classList.remove('ph-list');
+                icon.classList.add('ph-x');
+            }
+        });
+
+        // Kapatma işlemi menü linklerine tıklandığında
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.remove('ph-x');
+                icon.classList.add('ph-list');
+            });
+        });
+
+        // 2. Navbar Scroll Efekti
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md', 'h-20');
+                navbar.classList.remove('bg-white/95', 'h-24');
+                navbar.classList.add('bg-white');
+            } else {
+                navbar.classList.remove('shadow-md', 'h-20');
+                navbar.classList.add('h-24');
+                navbar.classList.remove('bg-white');
+                navbar.classList.add('bg-white/95');
+            }
+        });
+
+        // 3. Scroll Animasyonları (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Bir kere çalıştır
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 4. Gelişmiş Carousel/Slider Mantığı
+        const track = document.getElementById('track');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const items = document.querySelectorAll('.carousel-item');
+        
+        let currentIndex = 0;
+        let itemWidth = items[0].getBoundingClientRect().width;
+        let intervalId;
+        
+        // Ekran boyutu değiştiğinde genişliği güncelle
+        window.addEventListener('resize', () => {
+            itemWidth = items[0].getBoundingClientRect().width;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+
+        // Gösterilecek maksimum item sayısı hesaplama
+        function getMaxIndex() {
+            const containerWidth = document.querySelector('.carousel-container').clientWidth;
+            const visibleItems = Math.round(containerWidth / itemWidth);
+            return items.length - visibleItems;
+        }
+
+        function moveNext() {
+            const maxIndex = getMaxIndex();
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Başa dön
+            }
+            updateCarousel();
+        }
+
+        function movePrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = getMaxIndex(); // Sona git
+            }
+            updateCarousel();
+        }
+
+        nextBtn.addEventListener('click', () => {
+            moveNext();
+            resetInterval();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            movePrev();
+            resetInterval();
+        });
+
+        // Otomatik kaydırma
+        function startInterval() {
+            intervalId = setInterval(moveNext, 5000); // 5 saniyede bir
+        }
+
+        function resetInterval() {
+            clearInterval(intervalId);
+            startInterval();
+        }
+
+        startInterval(); // Başlat
+
+        // Hover yapıldığında slider dursun
+        track.addEventListener('mouseenter', () => clearInterval(intervalId));
+        track.addEventListener('mouseleave', startInterval);
+
+
+        // 5. Özel Toast (Bildirim) Fonksiyonu
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Sayfanın yenilenmesini engelle
+            
+            const toast = document.getElementById('toast');
+            
+            // Göster
+            toast.classList.remove('translate-x-[150%]', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+            
+            // Formu temizle
+            event.target.reset();
+
+            // 4 saniye sonra gizle
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-[150%]', 'opacity-0');
+            }, 4000);
+        }
+
+    </script>
+</body>
+</html>
